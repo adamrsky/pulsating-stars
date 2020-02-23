@@ -1,1 +1,1 @@
-# pulsating-stars
+# Pulsating stars

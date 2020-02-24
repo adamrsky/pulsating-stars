@@ -12,6 +12,8 @@ class PulsatingStars {
     this.canvas = canvas;
     this.starSize = options.starSize || 26;
     this.starSpacing = options.starSpacing || 22;
+    this.starOffsetX = options.starOffsetX || 8;
+    this.starOffsetY = options.starOffsetY || 20;
 
     this.init();
 
@@ -33,7 +35,7 @@ class PulsatingStars {
     for (let i = 0; i < this.amountOfStars; i++) {
       let x = i % this.tileRowCount;
       let y = Math.floor(i / this.tileRowCount);
-      this.addStar(new Star(x, y, this.starSize, this.starSpacing, this.canvas, i));
+      this.addStar(new Star(x, y, this.starSize, this.starSpacing, this.canvas, i, this.starOffsetX, this.starOffsetY));
     }
   }
 
@@ -67,9 +69,6 @@ class PulsatingStars {
    * Update stars size.
    */
   updateStarSize() {
-    this.stars.forEach(e => {
-      e.setSize(this.starSize);
-    });
     this.init();
   }
 
@@ -85,9 +84,36 @@ class PulsatingStars {
    * Update stars spacing.
    */
   updateStarSpacing() {
-    this.stars.forEach(e => {
-      e.setSize(this.starSpacing);
-    });
+    this.init();
+  }
+
+  /**
+   * Set stars x offset.
+   * @param {number} offset New Star x offset.
+   */
+  setStarOffsetX(offset) {
+    this.starOffsetX = offset;
+  }
+
+  /**
+   * Update stars x offset.
+   */
+  updateStarOffsetX() {
+    this.init();
+  }
+
+  /**
+   * Set stars y offset.
+   * @param {number} offset New Star y offset.
+   */
+  setStarOffsetY(offset) {
+    this.starOffsetY = offset;
+  }
+
+  /**
+   * Update stars y offset.
+   */
+  updateStarOffsetY() {
     this.init();
   }
 

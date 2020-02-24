@@ -7,18 +7,22 @@ class Star {
    * Create Star.
    * @param {number} x X position.
    * @param {number} y Y position.
-   * @param {number} size Size of star.
+   * @param {number} size Size of Star.
    * @param {number} spacing Spacing between stars.
    * @param {Canvas} canvas Canvas on which star will be drawn.
-   * @param {number} index Index of star.
+   * @param {number} index Index of Star.
+   * @param {number} offsetX X offset of Star.
+   * @param {number} offsetY Y offset of Star.
    */
-  constructor(x, y, size, spacing, canvas, index) {
+  constructor(x, y, size, spacing, canvas, index, offsetX, offsetY) {
     this.x = x;
     this.y = y;
     this.size = size;
     this.spacing = spacing;
     this.canvas = canvas;
     this.index = index;
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
     this.init();
   }
 
@@ -27,18 +31,10 @@ class Star {
    */
   init() {
     let { tick, maxTick } = this.canvas;
-    this.offset = (this.x * 8) + this.y * 20;
+    this.offset = Math.abs((this.x * this.offsetX) + this.y * this.offsetY);
     this.animDuration = maxTick / 2;
     this.tick = (tick + this.offset) % maxTick;
     this.maxTick = maxTick;
-  }
-
-  /**
-   * Set Star size.
-   * @param {number} size New Star size.
-   */
-  setSize(size) {
-    this.size = size;
   }
 
   /**
@@ -53,7 +49,7 @@ class Star {
    */
   draw() {
 
-    const { maxTick, ctx } = this.canvas;
+    const { ctx } = this.canvas;
 
     // ctx.fillStyle = 'grey';
 

@@ -101,6 +101,15 @@ class Canvas {
   }
 
   /**
+   * Init entities.
+   */
+  initEntities() {
+    this.entities.forEach((entity) => {
+      if(entity.init) entity.init();
+    });
+  }
+
+  /**
    * Cancel requested animation frame.
    */
   cancelRaf() {
@@ -137,7 +146,6 @@ class Canvas {
 
     if (++this.tick >= this.maxTick) this.tick = 0;
 
-    if (!this.paused) //this.rafId = window.requestAnimationFrame(this.render);
-    setTimeout(this.render, 50);
+    if (!this.paused) this.rafId = window.requestAnimationFrame(this.render);
   }
 }

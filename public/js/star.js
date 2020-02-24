@@ -5,18 +5,18 @@ class Star {
 
   /**
    * Create Star.
-   * @param {Number} x X position.
-   * @param {Number} y Y position.
-   * @param {Number} size Size of star.
-   * @param {Number} gap Gap between stars.
+   * @param {number} x X position.
+   * @param {number} y Y position.
+   * @param {number} size Size of star.
+   * @param {number} spacing Spacing between stars.
    * @param {Canvas} canvas Canvas on which star will be drawn.
-   * @param {Number} index Index of star.
+   * @param {number} index Index of star.
    */
-  constructor(x, y, size, gap, canvas, index) {
+  constructor(x, y, size, spacing, canvas, index) {
     this.x = x;
     this.y = y;
     this.size = size;
-    this.gap = gap;
+    this.spacing = spacing;
     this.canvas = canvas;
     this.index = index;
     this.init();
@@ -34,6 +34,14 @@ class Star {
   }
 
   /**
+   * Set Star size.
+   * @param {number} size New Star size.
+   */
+  setSize(size) {
+    this.size = size;
+  }
+
+  /**
    * Update Star.
    */
   update() {
@@ -47,20 +55,19 @@ class Star {
 
     const { maxTick, ctx } = this.canvas;
 
-    ctx.fillRect(
-      this.x * (this.size + this.gap),
-      this.y * (this.size + this.gap),
-      this.size, this.size
-    );
+    // ctx.fillStyle = 'grey';
 
-    let centerX = this.x + .5;
-    let centerY = this.y + .5;
+    // ctx.fillRect(
+    //   this.x * (this.size + this.spacing),
+    //   this.y * (this.size + this.spacing),
+    //   this.size, this.size
+    // );
 
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 1.25;
     ctx.lineCap = "round";
 
-    let spacing = .05;
+    let gap = this.size * .1;
 
     let animProgress;
 
@@ -70,7 +77,10 @@ class Star {
       animProgress = this.animDuration - (this.tick % this.animDuration);
     }
 
-    let len = 15;
+    let centerX = this.x * (this.size + this.spacing) + this.size / 2;
+    let centerY = this.y * (this.size + this.spacing) + this.size / 2;
+
+    let len = this.size / 2 - gap;
     let per = animProgress / this.animDuration;
     if(per < 0) per = 0;
 
@@ -78,45 +88,45 @@ class Star {
 
     // right
     ctx.moveTo(
-      (centerX + spacing * per) * (this.size + this.gap),
-      centerY * (this.size + this.gap)
+      (centerX + gap * per),
+      centerY
     );
 
     ctx.lineTo(
-      (centerX + spacing * per) * (this.size + this.gap) + len * per,
-      centerY * (this.size + this.gap)
+      (centerX + gap * per) + len * per,
+      centerY
     );
 
     // left
     ctx.moveTo(
-      (centerX - spacing * per) * (this.size + this.gap),
-      centerY * (this.size + this.gap)
+      (centerX - gap * per),
+      centerY
     );
 
     ctx.lineTo(
-      (centerX - spacing * per) * (this.size + this.gap) - len * per,
-      centerY * (this.size + this.gap)
+      (centerX - gap * per) - len * per,
+      centerY
     );
     // down
     ctx.moveTo(
-      centerX * (this.size + this.gap),
-      (centerY + spacing * per) * (this.size + this.gap)
+      centerX,
+      (centerY + gap * per)
     );
 
     ctx.lineTo(
-      centerX * (this.size + this.gap),
-      (centerY + spacing * per) * (this.size + this.gap) + len * per
+      centerX,
+      (centerY + gap * per) + len * per
     );
 
     // top
     ctx.moveTo(
-      centerX * (this.size + this.gap),
-      (centerY - spacing * per) * (this.size + this.gap)
+      centerX,
+      (centerY - gap * per)
     );
 
     ctx.lineTo(
-      centerX * (this.size + this.gap),
-      (centerY - spacing * per) * (this.size + this.gap) - len * per
+      centerX,
+      (centerY - gap * per) - len * per
     );
 
     ctx.stroke();

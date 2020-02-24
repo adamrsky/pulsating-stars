@@ -10,8 +10,6 @@ const canvas = new Canvas(
   document.getElementById("canvas"),
   {
     duration: 80,
-    size: 26,
-    gap: 22,
     stroke: '#FFF',
     background: '#000',
   }
@@ -21,7 +19,24 @@ canvas.addEntity((_canvas) =>
   _canvas.newEntity(
     new PulsatingStars(_canvas, {
       starSize: 26,
-      starGap: 22,
+      starSpacing: 22,
     })
   )
 );
+
+const pulsatingStars = canvas.entities[0];
+
+const starSize = folderStars.add(pulsatingStars, 'starSize', 10);
+starSize.onChange(() => {
+  pulsatingStars.updateStarSize();
+});
+
+const starSpacing = folderStars.add(pulsatingStars, 'starSpacing', 0);
+starSpacing.onChange(() => {
+  pulsatingStars.updateStarSpacing();
+});
+
+const maxTick = folderAnimation.add(canvas, 'maxTick', 20, 320).step(1);
+maxTick.onChange(() => {
+  canvas.initEntities();
+});

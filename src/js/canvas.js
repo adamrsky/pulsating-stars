@@ -68,8 +68,8 @@ class Canvas {
    * Clear canvas.
    * @param {Canvas} param0 Canvas object.
    */
-  static clearCanvas({ ctx }) {
-    const { x, y, width, height } = this.bounds;
+  static clearCanvas({ ctx, bounds }) {
+    const { x, y, width, height } = bounds;
     ctx.clearRect(x, y, width, height);
   }
 

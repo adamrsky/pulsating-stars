@@ -1,13 +1,13 @@
 /**
- * @class Canvas
+ * Class representing Canvas.
  */
 class Canvas {
 
   /**
-   * @constructor
-   * @param {HTMLCanvasElement} canvas
-   * @param {Object} options
-   * @param {Array} entities
+   * Create Canvas.
+   * @param {HTMLCanvasElement} canvas HTMLCanvasElement.
+   * @param {Object} options Options for Canvas.
+   * @param {Array} entities Initial entities.
    */
   constructor(canvas, options = {}, entities = []) {
     this.element = canvas;
@@ -33,7 +33,7 @@ class Canvas {
   }
 
   /**
-   * @method setupListeners
+   * Setup listeners.
    */
   setupListeners() {
     window.addEventListener("resize", (e) => this.handleResize(e));
@@ -41,6 +41,9 @@ class Canvas {
     window.addEventListener("focus", (e) => this.start(e));
   }
 
+  /**
+   * Set size of canvas element.
+   */
   setCanvasSize = () => {
     const { innerWidth: width, innerHeight: height } = window;
 
@@ -52,47 +55,79 @@ class Canvas {
     this.bounds = this.element.getBoundingClientRect();
   }
 
+  /**
+   * Handle resize of window.
+   * @param {Event} event Event to be handled.
+   */
   handleResize(event) {
     this.setCanvasSize();
     this.resizeEntities(event);
   };
 
+  /**
+   * Clear canvas.
+   * @param {Canvas} param0 Canvas object.
+   */
   static clearCanvas({ ctx }) {
     const { x, y, width, height } = this.bounds;
     ctx.clearRect(x, y, width, height);
   }
 
+  /**
+   * Add entity.
+   * @param {*} callback Callback.
+   */
   addEntity(callback) {
     callback(this);
   }
 
+  /**
+   * Add entity.
+   * @param {*} newEntity Entity to be added.
+   */
   newEntity(newEntity) {
     this.entities.push(newEntity)
     return this.entities.length - 1;
   };
 
+  /**
+   * Resize entities.
+   * @param {Event} event Event to be handled.
+   */
   resizeEntities(event) {
     this.entities.forEach((entity) => {
       if (entity.resize) entity.resize(this, event);
     });
   }
 
+  /**
+   * Cancel requested animation frame.
+   */
   cancelRaf() {
     if (this.rafId) cancelAnimationFrame(this.rafId);
     this.rafId = null;
   }
 
+  /**
+   * Stop animation.
+   */
   stop() {
     this.cancelRaf();
     this.paused = true;
   }
 
+  /**
+   * Start animation.
+   */
   start() {
     this.cancelRaf();
     this.paused = false;
     this.render();
   }
 
+  /**
+   * Render canvas.
+   */
   render = () => {
     this.ctx.clearRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
 

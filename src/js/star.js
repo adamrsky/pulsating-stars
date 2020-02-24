@@ -1,16 +1,16 @@
 /**
- * @class Star
+ * Class representing Star.
  */
 class Star {
 
   /**
-   * @constructor Star
-   * @param {Number} x
-   * @param {Number} y
-   * @param {Number} size
-   * @param {Number} gap
-   * @param {Canvas} canvas
-   * @param {Number} index
+   * Create Star.
+   * @param {Number} x X position.
+   * @param {Number} y Y position.
+   * @param {Number} size Size of star.
+   * @param {Number} gap Gap between stars.
+   * @param {Canvas} canvas Canvas on which star will be drawn.
+   * @param {Number} index Index of star.
    */
   constructor(x, y, size, gap, canvas, index) {
     this.x = x;
@@ -22,6 +22,9 @@ class Star {
     this.init();
   }
 
+  /**
+   * Initialize Star.
+   */
   init() {
     let { tick, maxTick } = this.canvas;
     this.offset = (this.x * 8) + this.y * 20;
@@ -30,12 +33,15 @@ class Star {
     this.maxTick = maxTick;
   }
 
+  /**
+   * Update Star.
+   */
   update() {
     if(++this.tick >= this.maxTick) this.tick = 1;
   }
 
   /**
-   * @function draw
+   * Draw Star.
    */
   draw() {
 

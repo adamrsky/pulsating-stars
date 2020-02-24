@@ -1,11 +1,11 @@
 /**
- * @class
+ * Class representing PulsatingStars.
  */
 class PulsatingStars {
 
   /**
-   * @constructor
-   * @param {Canvas} canvas
+   * Create PulsatingStars.
+   * @param {Canvas} canvas Canvas object.
    */
   constructor(canvas, options) {
 
@@ -18,7 +18,7 @@ class PulsatingStars {
   }
 
   /**
-   * @function init
+   * Initialize PulsatingStars.
    */
   init() {
 
@@ -37,14 +37,18 @@ class PulsatingStars {
     }
   }
 
+  /**
+   * Handle resize.
+   */
   resize() {
     this.init();
     this.draw();
   }
 
   /**
-   * @function addStar
-   * @param {Star} newElement
+   * Add new star.
+   * @param {Star} newElement Star to be added.
+   * @return {Number} New length of stars array.
    */
   addStar(newElement) {
 
@@ -54,7 +58,7 @@ class PulsatingStars {
   }
 
   /**
-   * @function draw
+   * Draw stars.
    */
   draw() {
     const marginX = (this.canvas.element.width - ((this.starSize + this.starGap)

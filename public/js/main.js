@@ -9,7 +9,7 @@ const folderAnimation = gui.addFolder('Animation');
 const canvas = new Canvas(
   document.getElementById("canvas"),
   {
-    duration: 80,
+    duration: 50,
     stroke: '#FFF',
     background: '#000',
   }
@@ -18,7 +18,7 @@ const canvas = new Canvas(
 canvas.addEntity((_canvas) =>
   _canvas.newEntity(
     new PulsatingStars(_canvas, {
-      starSize: 26,
+      starSize: 40,
       starSpacing: 22,
     })
   )
@@ -26,12 +26,12 @@ canvas.addEntity((_canvas) =>
 
 const pulsatingStars = canvas.entities[0];
 
-const starSize = folderStars.add(pulsatingStars, 'starSize', 10);
+const starSize = folderStars.add(pulsatingStars, 'starSize', 0, 100).step(1);
 starSize.onChange(() => {
   pulsatingStars.updateStarSize();
 });
 
-const starSpacing = folderStars.add(pulsatingStars, 'starSpacing', 0);
+const starSpacing = folderStars.add(pulsatingStars, 'starSpacing', 0, 100).step(1);
 starSpacing.onChange(() => {
   pulsatingStars.updateStarSpacing();
 });
